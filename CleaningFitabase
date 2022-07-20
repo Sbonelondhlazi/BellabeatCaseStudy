@@ -1,6 +1,7 @@
---Merged dailyActivity Excel file imported to SQL as strings instead of floats. I created a temporary table with corrected values
+--Cleaning process: Merged dailyActivity Excel file imported to SQL as strings instead of floats. I used the following code to cast strings to float.
 
-WITH daily_cleaned AS (
+--I then created a temporary table which I used to create a new table called dailyActivityCleaned
+/*WITH daily_cleaned AS (
 	SELECT 
 		Id,
 		ActivityDate,
@@ -18,25 +19,58 @@ WITH daily_cleaned AS (
 		CAST(Calories AS FLOAT) AS Calories
 
 	FROM fitabase.dbo.dailyActivity
+)*/
 
-)
+---Inserting data points into a new a table with cleaned values. Note: Execute once after creating a table.
 
------Displaying all data points and splitting datetime
+/*INSERT INTO fitabase.dbo.dailyActivityCleaned
+	(Id, ActivityDate, TotalSteps, TotalDistance, LoggedActiveDistance,VeryActiveDistance, ModeratelyActiveDistance, 
+	LightlyActiveDistance, SedentaryActiveDistance, VeryActiveMinutes, FairlyActiveMinutes, LightlyActiveMinutes, SedentaryActiveMinutes,
+	Calories)
+
+	SELECT *
+
+	FROM daily_cleaned*/
+
+
+
+
+---I created another table showing the number of days each user tracked his/her physical activity and used the code below to insert data points
+
+/*INSERT INTO fitabase.dbo.trackedDays
+(Id, days_activity_recorded)
+
+---Determine number of days health device was used
 SELECT
 	Id,
-	CAST(ActivityDate AS DATE) AS ActivityDate,
-	CAST(ActivityDate AS TIME) AS ActivityTime,
-	TotalSteps,
-	TotalDistance,
-	VeryActiveDistance,
-	ModeratelyActiveDistance,
-	LightActiveDistance,
-	SedentaryActiveDistance,
-	VeryActiveMinutes,
-	FairlyActiveMinutes,
-	LightlyActiveMinutes,
-	SedentaryActiveMinutes,
-	Calories
+	COUNT(ActivityDate) OVER (PARTITION BY Id) AS days_activity_recorded
 
-FROM
-	daily_cleaned 
+FROM fitabase.dbo.dailyActivity
+
+ORDER BY
+	days_activity_recorded DESC*/
+
+
+
+---Created 2 new tables summarizing sleep monitoring data. Note: Execute once only after creating the table
+---I created these tables so that I can join them and use them in the analysis
+/*INSERT INTO fitabase.dbo.summarySleepDay -----No.1
+(Id, TotalMinutesInBed, TotalMinutesAsleep)
+SELECT
+	Id,
+	SUM(TotalTimeInBed) AS TotalMinutesInBed,
+	SUM(TotalMinutesAsleep) AS TotalMinutesAsleep	
+FROM 
+	fitabase.dbo.sleepDay
+GROUP BY
+	Id*/
+
+/*INSERT INTO fitabase.dbo.summaryRestless ----No.2
+(Id, TotalMinutesRestless)
+
+SELECT 
+	DISTINCT Id, 
+	COUNT(value) OVER (PARTITION BY Id) AS TotalMinuteRestless
+FROM fitabase.dbo.minuteSleep_state
+WHERE
+	value = 2 ---2 = Restless */
