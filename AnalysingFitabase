@@ -1,0 +1,88 @@
+---Calculating, number of users tracking their physical activities, their average steps, average distance and average calories
+SELECT
+	COUNT(DISTINCT Id) AS numUsers,
+	AVG(TotalSteps) AS averageSteps,
+	AVG(TotalDistance) AS averageTotalDistance,
+	AVG(Calories) AS averageCalories
+FROM	
+	 fitabase.dbo.dailyActivityCleaned --new table created 
+
+
+---I used inner joint to merge dailyActivityCleaned table with trackedDays. 
+---The code is for calculating averageDays a device was used, average minutes for each activity level and  total minutes a device was used
+SELECT 
+	AVG(days_activity_recorded) AS AverageDaysRecorded,
+	ROUND(AVG(VeryActiveMinutes), 2) AS AverageVeryActiveMinutes,
+	ROUND(AVG(FairlyActiveMinutes), 2) AS AverageFairlyActiveMinutes,
+	ROUND(AVG(LightlyActiveMinutes)/60, 2) AS AverageLightlyActiveHours,
+	ROUND(AVG(SedentaryActiveMinutes)/60, 2) AS AverageSedentaryActiveHours,
+	ROUND((SELECT
+		(SUM(VeryActiveMinutes) + SUM(FairlyActiveMinutes)+SUM(LightlyActiveMinutes)+SUM(SedentaryActiveMinutes))/COUNT (fitabase.dbo.dailyActivityCleaned.Id)
+	FROM fitabase.dbo.dailyActivityCleaned )/60, 2) AS AverageHoursDeviceUsed
+FROM 
+	fitabase.dbo.trackedDays AS trackedDays
+JOIN fitabase.dbo.dailyActivityCleaned AS cleanedDaily
+ON
+	trackedDays.Id = cleanedDaily.Id
+
+
+----Determing times in a day where users were mostly active by using Average Intensity and METs per hour
+SELECT 
+	DISTINCT (CAST(ActivityHour AS TIME)) AS ActivityTime,
+	AVG(TotalIntensity) OVER (PARTITION BY DATEPART(HOUR, ActivityHour)) AS AverageIntensity,
+	AVG(CAST(METs AS INT)/10.0) OVER (PARTITION BY DATEPART(HOUR, ActivityHour)) AS AverageMETs --MET devided by 10 to get correct values
+
+FROM
+	fitabase.dbo.hourlyActivity AS hourlyActivity
+JOIN fitabase.dbo.minuteMETsNarrow AS minuteMETs
+ON
+	hourlyActivity.Id = minuteMETs.Id AND
+	minuteMETs.ActivityMinute = hourlyActivity.ActivityHour
+
+
+ORDER BY
+	AverageIntensity DESC
+
+
+---Determining number of users that are tracking their sleeping pattern
+
+SELECT 
+	COUNT (DISTINCT Id) AS usersTrackingSleep,
+	COUNT(DISTINCT Id)/33.0*100 AS PercetageUsers,
+	AVG(TotalMinutesAsleep)/60.0 AS AverageHoursAsleep,
+	AVG(TotalTimeInBed)/60.0 AS AverageHoursInBed
+
+FROM
+	fitabase.dbo.sleepDay 
+
+----Summary of sleep pattern per user
+SELECT
+	Restless.Id,
+	TotalMinutesInBed,
+	TotalMinutesRestless,
+	TotalMinutesAsleep
+FROM fitabase.dbo.summarySleepDay AS sleepDay ---using new table created
+JOIN fitabase.dbo.summaryRestless AS Restless ---using new table created
+ON
+	sleepDay.Id = Restless.Id 
+
+---Determining minimum and maximum heart rate, number of users tracking heart rate and the number of recored days
+SELECT
+	MIN(CAST(Value AS FLOAT)) AS min_heart_rate,
+	MAX(CAST(Value AS FLOAT)) AS max_heart_rate,
+	COUNT(DISTINCT Id ) AS num_sers,
+	COUNT(DISTINCT DATEPART(DAY, Time)) AS num_days_recorded
+	
+
+FROM
+	fitabase.dbo.heartrate_seconds
+
+---Determining average heart rate per user
+SELECT
+Id,
+AVG(CAST(Value AS INT)) AS AverageHeartRate
+FROM
+	fitabase.dbo.heartrate_seconds
+
+GROUP BY
+	Id
