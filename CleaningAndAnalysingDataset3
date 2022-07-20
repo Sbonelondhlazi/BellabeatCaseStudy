@@ -1,0 +1,70 @@
+---Cleaning and analysing Dataset 3
+
+---Removing duplicates and zero values
+
+WITH cleanedActivity AS (
+	SELECT 
+		DISTINCT Date,
+		AVG(steps) AS steps,
+		AVG(distance)/1000.0 AS distance,
+		AVG(runDistance)/1000.0 AS runDistance,
+		AVG(calories) AS calories
+
+	FROM otherTracking.dbo.dailyActivity3
+
+	WHERE 
+		steps >0 AND 
+		distance >0 AND 
+		runDistance >0 AND 
+		calories>0
+
+	GROUP BY
+		Date
+	
+)
+
+---Calculating number of days tracked, average daily steps, average distance, average run distance and average calories burned
+SELECT 
+	COUNT(DISTINCT Date) AS numDaysTracked,
+	AVG(steps) AS averageSteps,
+	AVG(distance) AS averageDistance,
+	AVG(runDistance) AS averageRunDistance,
+	AVG(calories) AS calories
+	
+FROM cleanedActivity
+
+
+---Determining minimum , maximum and average heart rate
+SELECT 
+	MIN(heartRate) AS minHeartRate,
+	MAX(heartRate) AS maxHeartRate,
+	AVG(heartRate) AS averageHeartRate
+
+FROM otherTracking.dbo.heartRate3
+
+
+---Creating a temporary table with no zero values
+WITH cleanedSleep AS (
+	SELECT 
+		date,
+		AVG(deepSleepTime + shallowSleepTime) AS asleep,
+		AVG(wakeTime) AS restless
+
+	FROM otherTracking.dbo.sleep3
+
+
+	WHERE
+		deepSleepTime >0 AND
+		shallowSleepTime >0
+
+	GROUP BY
+		date
+)
+
+---Calculating number of days tracked, average hours spend asleep and average minutes spent restless
+SELECT  
+	COUNT(date) AS numDaysTracked,
+	AVG(asleep)/60.0 AS averageHoursAsleep,
+	AVG(restless) AS averageMinutesRestless
+
+FROM cleanedSleep
