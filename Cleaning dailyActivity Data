@@ -1,0 +1,42 @@
+--Merged dailyActivity Excel file imported to SQL as strings instead of floats. I created a temporary table with corrected values
+
+WITH daily_cleaned AS (
+	SELECT 
+		Id,
+		ActivityDate,
+		CAST(TotalSteps AS FLOAT) AS TotalSteps,
+		CAST(TotalDistance AS FLOAT) AS TotalDistance,
+		CAST(LoggedActivitiesDistance AS FLOAT) AS LoggedActiveDistance,
+		CAST(VeryActiveDistance AS FLOAT) AS VeryActiveDistance,
+		CAST(ModeratelyActiveDistance AS FLOAT) AS ModeratelyActiveDistance,
+		CAST(LightActiveDistance AS FLOAT) AS LightActiveDistance,
+		CAST(SedentaryActiveDistance AS FLOAT) AS SedentaryActiveDistance,
+		CAST(VeryActiveMinutes AS FLOAT) AS VeryActiveMinutes,
+		CAST(FairlyActiveMinutes AS FLOAT) AS FairlyActiveMinutes,
+		CAST(LightlyActiveMinutes AS FLOAT) AS LightlyActiveMinutes,
+		CAST(SedentaryMinutes AS FLOAT) AS SedentaryActiveMinutes,
+		CAST(Calories AS FLOAT) AS Calories
+
+	FROM fitabase.dbo.dailyActivity
+
+)
+
+-----Displaying all data points and splitting datetime
+SELECT
+	Id,
+	CAST(ActivityDate AS DATE) AS ActivityDate,
+	CAST(ActivityDate AS TIME) AS ActivityTime,
+	TotalSteps,
+	TotalDistance,
+	VeryActiveDistance,
+	ModeratelyActiveDistance,
+	LightActiveDistance,
+	SedentaryActiveDistance,
+	VeryActiveMinutes,
+	FairlyActiveMinutes,
+	LightlyActiveMinutes,
+	SedentaryActiveMinutes,
+	Calories
+
+FROM
+	daily_cleaned 
