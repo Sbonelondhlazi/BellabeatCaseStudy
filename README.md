@@ -1,5 +1,8 @@
 # BellabeatCaseStudy
-A Google Data Analytics capstone project.  Done in Microsoft Excel and Microsoft SQL Server
+A Google Data Analytics capstone project.  Done in Microsoft Excel and Microsoft SQL Server. Datasets used are listed below:
+* Fitabase: https://www.kaggle.com/datasets/arashnic/fitbit
+* Dataset 2: https://www.kaggle.com/datasets/damirgadylyaev/more-than-4-years-of-steps-and-sleep-data-mi-band
+* Dataset 3: https://www.kaggle.com/datasets/parulgarg123/mi-fitbit-dataset) 
 
 
 # Conclusion
@@ -14,7 +17,7 @@ The conclusion and recommendations will be based on the three datasets analysed 
 * Respondents that tracked their sleeping pattern receive the recommended amount of sleep.
 * 42 % of the respondents that tracked their heart health had normal heart rate.
 
-#Recommendations
+# Recommendations
 The following are the main recommendations for Bellabeat:
 * Users use health tracking devices throughout the day, not only at the gym. Bellabeat marketing campaign should not only focus on health but on the beauty and the image their products portray. Their products must be fashionable.
 * Bellabeat can emphasis on the protection of its clients’ private information as these devices become part of their lives.
