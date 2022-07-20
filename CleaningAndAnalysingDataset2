@@ -1,0 +1,33 @@
+---Cleaning and analysing Dataset 2
+
+---Creating a temporary table whereby distance is converted from metres to kilometres
+WITH cleanedActivity AS (
+	SELECT 
+		date,
+		steps,
+		distance/1000.0 AS totalDistance,
+		runDistance/1000.0 AS runDistance,
+		calories AS Calories
+
+	FROM otherTracking.dbo.dailyActivity2
+)
+
+---Calculating the number of days tracked, average steps, distance and calories
+ SELECT 
+	COUNT(*) AS numDaysTracked,
+	AVG(steps) AS averageSteps,
+	AVG(totalDistance) AS averageDistance,
+	AVG(runDistance) AS averageVeryActiveDistance,
+	AVG(Calories) AS averageCalories
+ FROM cleanedActivity 
+ 
+
+ ---Calculating number of days sleeping pattern was tracked, time the user was asleep and time the user was restless
+SELECT 
+ COUNT(*) AS numDaysTracked,
+ AVG(deepSleepTime + shallowSleepTime)/60.0 AS averagHoursAsleep,
+ AVG(wakeTime) AS averageMinutesRestless
+
+ FROM otherTracking.dbo.sleep2
+
+WHERE deepSleepTime > 0 AND shallowSleepTime >0 ----Excluding dates with zero values
