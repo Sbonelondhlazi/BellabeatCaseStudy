@@ -39,7 +39,7 @@ The following are the main recommendations for Bellabeat:
 
 For its clients, Bellabeat can provide the following which can be their selling point:
 * Provide health campaigns that encourage healthy lifestyle. Provide its clients with comprehensive health information by showing how different health metrics work together.
-* Emphasise on the importance of tracking heartrate and send warning whenever certain thresholds are exceeded. Offer the option to link their devices to medical services in case of imminent heart attack.
+* Emphasise on the importance of tracking heart rate and send warning whenever certain thresholds are exceeded. Offer the option to link their devices to medical services in case of imminent heart attack.
 * Send training reminders before times when users are mostly active.
 * Ensure that their devices have long lasting battery so that users can use their devices for longer.
 * Give its clients comprehensive reports and tips on how to improve their lifestyles.
