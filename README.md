@@ -19,7 +19,7 @@ Analyse smart device data usage in order to gain insight into how consumers use 
 The literature study shows that there is a market for health smart device trackers and this market is expected to grow. There are major players dominating the market however there is still room for smaller players to grow. There is opportunity to capture those users who have stopped using the app, get new clients who have never used health tracking devices as digitization rate continues to grow and/ or capture clients using other applications by offering them cutting edge applications and comprehensive health products.
 
 # Conclusion
-Most users of tracking devices are female which give Bellabeat an added advantage. The market is expected to grow which gives Bellabeat opportunity to grow.
+Most users of tracking devices are female which gives Bellabeat an added advantage. The market is expected to grow which gives Bellabeat opportunity to grow.
 The conclusion and recommendations will be based on the three datasets analysed in this study. The following are the main conclusion reached.
 * Most respondents used health tracking devices consistently
 * All respondents tracked calories, steps, physical activity and corresponding duration. 
