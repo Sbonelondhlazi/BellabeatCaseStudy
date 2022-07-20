@@ -4,6 +4,19 @@ A Google Data Analytics capstone project.  Done in Microsoft Excel and Microsoft
 * Dataset 2: https://www.kaggle.com/datasets/damirgadylyaev/more-than-4-years-of-steps-and-sleep-data-mi-band
 * Dataset 3: https://www.kaggle.com/datasets/parulgarg123/mi-fitbit-dataset) 
 
+# About the Company
+Bellabeat is a high tech manufacturing company that is focused on health products for women. Its product range include Bellabeat app , Leaf (a wellness tracker that can be worn as a bracelet, necklace or clip), Time (a wellness watch) and Spring (a water bottle that tracks daily water intake). These products track users’ physical activities, sleep, stress, menstrual cycle and mindfulness habits. The company’s objective is to become a larger player in the global smart device markets.
+
+# Business Task
+Analyse smart device data usage in order to gain insight into how consumers use non-Bellabeat smart devices and use those insights to guide Bellabeat’s marketing strategy.
+
+# Objectives (Ask)
+* Identify trends on non-Bellabeat smart device usage
+* Find ways to connect these trends to Bellabeat customers
+* Identify ways that these trends can help to influence Bellabeat marketing strategy
+
+# Literature Study (Only the summary included)
+The literature study shows that there is a market for health smart device trackers and this market is expected to grow. There are major players dominating the market however there is still room for smaller players to grow. There is opportunity to capture those users who have stopped using the app, get new clients who have never used health tracking devices as digitization rate continues to grow and/ or capture clients using other applications by offering them cutting edge applications and comprehensive health products.
 
 # Conclusion
 Most users of tracking devices are female which give Bellabeat an added advantage. The market is expected to grow which gives Bellabeat opportunity to grow.
