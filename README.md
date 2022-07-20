@@ -15,7 +15,7 @@ Analyse smart device data usage in order to gain insight into how consumers use 
 * Find ways to connect these trends to Bellabeat customers
 * Identify ways that these trends can help to influence Bellabeat marketing strategy
 
-# Literature Study (Only the summary included)
+# Literature Study (Only the summary is included)
 The literature study shows that there is a market for health smart device trackers and this market is expected to grow. There are major players dominating the market however there is still room for smaller players to grow. There is opportunity to capture those users who have stopped using the app, get new clients who have never used health tracking devices as digitization rate continues to grow and/ or capture clients using other applications by offering them cutting edge applications and comprehensive health products.
 
 # Conclusion
