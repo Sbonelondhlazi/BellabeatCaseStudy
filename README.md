@@ -10,4 +10,4 @@ Bellabeat is a high tech manufacturing company that is focused on health product
 # Business Task
 Analyse smart device data usage in order to gain insight into how consumers use non-Bellabeat smart devices and use those insights to guide Bellabeat’s marketing strategy.
 
-A full report is attached as Case_Study2_2022-06-18.pdf
+A full report is attached (https://github.com/Sbonelondhlazi/BellabeatCaseStudy/blob/main/Case_Study2_2022-06-18.pdf)
