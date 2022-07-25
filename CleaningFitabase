@@ -1,6 +1,15 @@
---Cleaning process: Merged dailyActivity Excel file imported to SQL as strings instead of floats. I used the following code to cast strings to float.
+---Cleaning process: Merged dailyActivity Excel file imported to SQL as strings instead of floats. I used the following code to cast strings to float.
+---Started by creating a table
+/*IF EXISTS(SELECT *
+			FROM fitabase.dbo.dailyActivityCleaned)
+DROP TABLE fitabase.dbo.dailyActivityCleaned
 
---I then created a temporary table which I used to create a new table called dailyActivityCleaned
+CREATE TABLE fitabase.dbo.dailyActivityCleaned
+(Id FLOAT, ActivityDate DATETIME2(7), TotalSteps FLOAT, TotalDistance FLOAT, LoggedActiveDistance FLOAT,VeryActiveDistance FLOAT, ModeratelyActiveDistance FLOAT, 
+	LightlyActiveDistance FLOAT, SedentaryActiveDistance FLOAT, VeryActiveMinutes FLOAT, FairlyActiveMinutes FLOAT, LightlyActiveMinutes FLOAT, SedentaryActiveMinutes FLOAT,
+	Calories FLOAT)*/
+
+---I then created a temporary table. 
 /*WITH daily_cleaned AS (
 	SELECT 
 		Id,
@@ -35,9 +44,17 @@
 
 
 
----I created another table showing the number of days each user tracked his/her physical activity and used the code below to insert data points
+---I created another table showing the number of days each user tracked his/her physical activity
 
-/*INSERT INTO fitabase.dbo.trackedDays
+/*IF EXISTS(SELECT *                         ##Code for dropping the table if it already exists
+	FROM fitabase.dbo.trackedDays)
+
+DROP TABLE fitabase.dbo.trackedDays
+
+CREATE TABLE fitabase.dbo.trackedDays
+	(Id FLOAT, days_activity_recorded int)
+
+INSERT INTO fitabase.dbo.trackedDays
 (Id, days_activity_recorded)
 
 ---Determine number of days health device was used
@@ -51,10 +68,18 @@ ORDER BY
 	days_activity_recorded DESC*/
 
 
-
 ---Created 2 new tables summarizing sleep monitoring data. Note: Execute once only after creating the table
 ---I created these tables so that I can join them and use them in the analysis
-/*INSERT INTO fitabase.dbo.summarySleepDay -----No.1
+
+/*IF EXISTS(SELECT *
+	FROM fitabase.dbo.summarySleepDay)
+
+DROP TABLE fitabase.dbo.summarySleepDay
+
+CREATE TABLE fitabase.dbo.summarySleepDay                         ##No.1
+	(Id FLOAT, TotalMinutesInBed INT, TotalMinutesAsleep INT)
+
+INSERT INTO fitabase.dbo.summarySleepDay
 (Id, TotalMinutesInBed, TotalMinutesAsleep)
 SELECT
 	Id,
@@ -65,7 +90,18 @@ FROM
 GROUP BY
 	Id*/
 
-/*INSERT INTO fitabase.dbo.summaryRestless ----No.2
+
+
+
+/*IF EXISTS(SELECT *
+	FROM fitabase.dbo.summaryRestless)
+
+DROP TABLE fitabase.dbo.summaryRestless
+
+CREATE TABLE fitabase.dbo.summaryRestless     ##No.2
+	(Id FLOAT, TotalMinutesRestless INT)
+
+INSERT INTO fitabase.dbo.summaryRestless
 (Id, TotalMinutesRestless)
 
 SELECT 
@@ -73,4 +109,4 @@ SELECT
 	COUNT(value) OVER (PARTITION BY Id) AS TotalMinuteRestless
 FROM fitabase.dbo.minuteSleep_state
 WHERE
-	value = 2 ---2 = Restless */
+	value = 2 ---2 = Restless*/
