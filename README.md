@@ -34,6 +34,6 @@ For its clients, Bellabeat can provide the following which can be their selling 
 * Ensure that their devices have long lasting battery so that users can use their devices for longer.
 
 
-## A full report is attached (https://github.com/Sbonelondhlazi/BellabeatCaseStudy/blob/main/Case_Study2_2022-06-18.pdf)
+### A full report is attached (https://github.com/Sbonelondhlazi/BellabeatCaseStudy/blob/main/Case_Study2_2022-06-18.pdf)
 
-## This is a link to my presentation: https://youtu.be/ai2ilo6jn78
+### This is a link to my presentation: https://youtu.be/ai2ilo6jn78
